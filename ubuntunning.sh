@@ -25,7 +25,7 @@ sleep 3
 RPATH=`pwd`
 REAL_USER=`whoami`
 TEMP_DIR="$RPATH/temp_dir"
-TOOLS_LIST="git python3 python3-venv python3-pip vim scrot zsh lsd kitty tmux bat zenmap nmap sslscan dnsrecon nikto wafw00f net-tools wireshark wget curl gnome-tweaks gnome-shell-extension-manager libnss3-tools default-jre timeshift vlc gufw"
+TOOLS_LIST="git gh python3 python3-venv python3-pip vim scrot zsh lsd kitty tmux bat zenmap nmap sslscan dnsrecon nikto wafw00f net-tools binutils traceroute wireshark wget curl gnome-tweaks gnome-shell-extension-manager libnss3-tools default-jre timeshift vlc gufw neofetch pssh"
 mkdir ~/.config/kitty/
 rm -rf $TEMP_DIR
 mkdir -p $TEMP_DIR
