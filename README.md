@@ -52,8 +52,8 @@ El script automatiza la instalación y configuración de las siguientes categor�
 ## 🚀 Instalación Rápida
 
 ```bash
-git clone https://github.com/jhondbarrera/linux_scripts.git
-cd linux_scripts
+git clone https://github.com/jhondbarrera/ubuntunning.git
+cd ubuntunnning
 chmod +x ubuntunning.sh
 ./ubuntunning.sh
 ```
