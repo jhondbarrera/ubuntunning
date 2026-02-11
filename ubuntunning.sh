@@ -116,25 +116,37 @@ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/t
   chmod 755 msfinstall && \
   ./msfinstall
 
-# #Personalización dock
+#Personalización del dock
 echo -e "${YELLOW}[CONFIG] Personalizando el Dock de GNOME para $REAL_USER...${NC}"
-DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u "$REAL_USER")/bus" 
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'firefox_firefox.desktop', 'google-chrome.desktop']"
+## Definir el bus para que root pueda hablar con la sesión de del usuario
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u "$REAL_USER")/bus"
+## Definir el orden exacto de las aplicaciones
+APPS_ORDER="['kitty.desktop', 'code.desktop', 'firefox_firefox.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'wireshark.desktop']"
+## Aplicar configuración del Dock
+gsettings set org.gnome.shell favorite-apps "$APPS_ORDER"
 SCHEMA="org.gnome.shell.extensions.dash-to-dock"
-gsettings set $SCHEMA dock-position 'BOTTOM'      # Abajo
-gsettings set $SCHEMA dock-fixed false            # Ocultar automáticamente (false = auto-hide activado)
-gsettings set $SCHEMA extend-height false         # Centrado (false = no ocupa todo el ancho, estilo dock flotante)
-gsettings set $SCHEMA dash-max-icon-size 38       # Tamaño 38
-gsettings set $SCHEMA show-trash false            # Ocultar papelera
-#gsettings set $SCHEMA show-mounts false           # Ocultar discos montados (opcional, para más limpieza)
-gsettings set $SCHEMA transparency-mode 'FIXED'   # Modo de transparencia fijo
-gsettings set $SCHEMA background-opacity 0.0      # 0.0 = 100% Transparente
+gsettings set $SCHEMA dock-position 'BOTTOM'
+gsettings set $SCHEMA dock-fixed false
+gsettings set $SCHEMA extend-height false
+gsettings set $SCHEMA dash-max-icon-size 38
+gsettings set $SCHEMA show-trash false
+gsettings set $SCHEMA transparency-mode 'FIXED'
+gsettings set $SCHEMA background-opacity 0.0
 
 #Definiendo zsh como shell para el usuario
 echo -e "${GREEN}------------------------------------------------${NC}"
 echo -e "${GREEN}    Estableciendo zsh como shell por defecto    ${NC}"
 echo -e "${GREEN}------------------------------------------------${NC}"
 chsh -s /bin/zsh
+
+# Configurar Ctrl+Alt+T para abrir Kitty
+echo -e "${YELLOW}[CONFIG] Remapeando Ctrl+Alt+T a Kitty...${NC}"
+gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['']"
+KEY_PATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name 'Abrir Kitty'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command '/usr/bin/kitty'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH binding '<Control><Alt>t'
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$KEY_PATH']"
 
 # Limpieza y Finalización
 echo -e "${GREEN}------------------------------------------------${NC}"
