@@ -98,6 +98,13 @@ chmod +x maltego.deb
 echo -e "${YELLOW}[INSTALL] Instalando Maltego...${NC}"
 sudo apt install -y ./maltego.deb
 
+#Instalación VSCode
+echo -e "${YELLOW}[DOWNLOAD] Visual Studio Code...${NC}"
+wget -O vscode.deb https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+chmod +x vscode.deb
+echo -e "${YELLOW}[INSTALL] Instalando Visual Studio Code...${NC}"
+sudo apt install -y ./vscode.deb
+
 #Instalacion MSF
 echo -e "${YELLOW}[DOWNLOAD] Descargando Metasploit Framework...${NC}"
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
